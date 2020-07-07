@@ -1,7 +1,7 @@
 # RMoM-RV-framework-ROS
 RV framework for the swarming systems on ROS
 
-#HOW TO USE
+# HOW TO USE
  Python_version > 3.7
  pip install mtl (Version 0.1.7 is recommended )
     >if cannot install, copy the \site-packages into $python_path\Lib\site-packages
@@ -16,7 +16,7 @@ RV framework for the swarming systems on ROS
 
 
 
-#FAQ:
+# FAQ:
 
 1. Error: "Tkinter" module cannont be found
    
