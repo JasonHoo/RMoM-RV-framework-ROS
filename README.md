@@ -7,11 +7,11 @@ RV framework for the swarming systems on ROS
     >if cannot install, copy the \site-packages into $python_path\Lib\site-packages
 
 
- ## Step one
+ ### Step one
  run ..\monitorServer-master\monitorServerMain.py
     >input the username and password, password: nudtuserhc
     >press server launch button
- ## step two
+ ### step two
  run the clientMonitor.py on ROS environment of each robot node
  or run the testScripts on Windows for simulation 
 
