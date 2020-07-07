@@ -1,0 +1,4 @@
+a : Robot5.vx + Robot2.vx * Robot2.vx < 2000
+b : Robot5.vy + 2 > 49
+
+phi : F(a | b)
