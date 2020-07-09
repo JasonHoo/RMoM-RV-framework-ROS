@@ -8,8 +8,6 @@ RV framework for the swarming systems on ROS. The related work is published on I
  Python_version > 3.7
  
     -pip install metric-temporal-logic==0.1.7 (Version 0.1.7 is recommended)
- 
-    -if cannot install, copy the \site-packages into $python_path\Lib\site-packages
 
 
  ### Step one
