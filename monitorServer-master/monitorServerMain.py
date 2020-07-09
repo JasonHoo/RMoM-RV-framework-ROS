@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
 
         def check_pass(username, password):
-            with open('.userfile.txt', 'r+') as f:
+            with open('userfile.txt', 'r+') as f:
                 content = f.readlines()
             for i in content:
                 if i.split(',')[0].strip() == username and i.split(',')[1].strip().strip('\n') == password:
