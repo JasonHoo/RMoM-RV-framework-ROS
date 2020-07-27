@@ -1,4 +1,27 @@
-a : Robot5.vx + Robot2.vx * Robot2.vx < 2000
-b : Robot5.vy + 2 > 49
+#hierarchical specification of swarming task 
+#described by MTL logic
 
-phi : F(a | b)
+<CONFIG>
+        swarm_ID = "Searching BotSwarm"
+        bot_num = 10
+        ROS_version = kinetic
+        sys_version = 16.04
+        monitor_topic = /robot/odometry
+
+<EVENT>
+#here the EventID can only be declared by lowercase
+        #Robot0 is the leader of swarming task. The remaining should be guaranteed
+        #Robot5 is an old UAV device
+        res_mem_0 :    Robot0.mem < 0.8 
+        res_mem_5 :    Robot5.mem < 0.9
+
+        com_topic_shutdown:    Robot1.comd + Robot2.comd + Robot3.comd + Robot4.comd + Robot5.comd + Robot6.comd + Robot7.comd + Robot8.comd + Robot9.comd = 0
+
+        bot_speed :    Robot0.vx < 2 and Robot0.vy <2 and Robot1.vx < 2 and Robot1.vy <2 and Robot2.vx < 2 and Robot2.vy <2 and Robot3.vx < 2 and Robot3.vy <2 and Robot4.vx < 2 and Robot4.vy <2 and Robot5.vx < 2 and Robot5.vy <2 and Robot6.vx < 2 and Robot6.vy <2 and Robot7.vx < 2 and Robot7.vy <2 and Robot8.vx < 2 and Robot8.vy <2 and Robot9.vx < 2 and Robot9.vy <2
+        bot_safe_0 :    Robot0.vx<1.2 and Robot0.vy<1.2
+        bot_dest_0 :    Robot0.tx<-10 and Robot0.ty<-10
+
+        swarm_distance :    pow(Robot1.tx-Robot0.tx,2)+pow(Robot1.ty-Robot0.ty,2) < pow(50,2) and pow(Robot2.tx-Robot0.tx,2)+pow(Robot2.ty-Robot0.ty,2) < pow(50,2) and pow(Robot3.tx-Robot0.tx,2)+pow(Robot3.ty-Robot0.ty,2) < pow(50,2) and pow(Robot4.tx-Robot0.tx,2)+pow(Robot4.ty-Robot0.ty,2) < pow(50,2) and pow(Robot5.tx-Robot0.tx,2)+pow(Robot5.ty-Robot0.ty,2) < pow(50,2) and pow(Robot6.tx-Robot0.tx,2)+pow(Robot6.ty-Robot0.ty,2) < pow(50,2) and pow(Robot7.tx-Robot0.tx,2)+pow(Robot7.ty-Robot0.ty,2) < pow(50,2) and pow(Robot8.tx-Robot0.tx,2)+pow(Robot8.ty-Robot0.ty,2) < pow(50,2) and pow(Robot9.tx-Robot0.tx,2)+pow(Robot9.ty-Robot0.ty,2) < pow(50,2)
+
+<PROPERTY>
+        phi : G( (res_mem_0 ^ res_mem_5) ^ com_topic_shutdown ^ bot_speed ^ swarm_distance ^ ( bot_safe_0 U[0, 20] bot_dest_0 ) )
