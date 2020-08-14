@@ -26,6 +26,8 @@ verdictRet = "Uncertain"       #判定结果
 dataDict = {}
 atompDict = {}
 specificDict = {}
+# config parameters
+bot_num = 0
 #######################################################
 
 if __name__ == "__main__":
@@ -234,6 +236,7 @@ if __name__ == "__main__":
 
 
         def ParseSpecs(ppath):
+		global bot_num
                 global specificDict
                 with open(ppath,"rb") as load_f:
                         for line in load_f:
@@ -244,6 +247,24 @@ if __name__ == "__main__":
                                 if ifnol is True:
                                         keySpecific = (read[0: read.rfind(':', 1)]).replace("\n", "").strip()
                                         valueSpecific = read[read.rfind(':', 1) +1 : ].replace("\n", "").strip()
+					
+					#解析参数化保留字FORALL 和 EXISTS
+                                        if bool(re.search('FORALL', valueSpecific)) is True:
+                                                tmp_valueSpecific = valueSpecific.replace("FORALL","").strip()
+                                                valueSpecific = ""
+                                                for itor in range(0,bot_num):
+                                                        valueSpecific = valueSpecific + tmp_valueSpecific.replace("_i",("_"+str(itor)))
+                                                        if itor+1 != bot_num:
+                                                                valueSpecific = valueSpecific + " and "
+                                                                
+                                        elif bool(re.search('EXISTS', valueSpecific)) is True:
+                                                tmp_valueSpecific = valueSpecific.replace("EXISTS","").strip()
+                                                valueSpecific = ""
+                                                for itor in range(0,bot_num):
+                                                        valueSpecific = valueSpecific + tmp_valueSpecific.replace("_i",("_"+str(itor)))
+                                                        if itor+1 != bot_num:
+                                                                valueSpecific = valueSpecific + " or "
+					
                                         specificDict[keySpecific] = []
                                         specificDict[keySpecific] = valueSpecific
                 print(specificDict)
